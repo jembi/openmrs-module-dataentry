@@ -1,0 +1,128 @@
+fieldset
+{
+	left : 0;
+/**	width: 1000px; **/ 
+	font-size:small;
+	border: 2px solid #c9c9c9;
+	background-color:#E9F2GA;
+	padding:3px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+/** margin-left: auto; **/
+	margin-right: auto; 
+	-webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+}
+select {
+	text-transform: capitalize; 
+	font-size: 10px;
+}
+legend
+{
+	background-color: #8FABC7;
+	border: 1px solid #b9b7c0;
+	padding: 2px 6px;
+	font-size: small;
+	font-weight: bold;
+	color: #FFFFFF; 
+}
+.capitalized
+{
+	text-transform:capitalize;
+}
+
+input, select {
+ font-size: 10px;
+/** background-color: #E8F2FE; **/
+ border: 1px solid #666666;
+}
+
+.pretty-hover {
+  background: #fee;
+  cursor: pointer;
+  
+}
+
+.redbox
+{
+	width:16px; 
+	height:16px;
+	margin:3px;
+	padding:2px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: medium;
+	color: #EB99AD;
+}
+
+.greenbox
+{
+	width:16px; 
+	height:16px;
+	padding: 1px; 
+	margin:4px;
+	cursor: pointer;
+	background-image: url("add.gif");
+	background-repeat: no-repeat;
+}
+.labelcell {
+	 font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	 color: #3670A7;
+	 background-color: transparent;
+	 width: 220px;
+}
+
+.fieldcell {
+	 background-color: #F2F7FB;
+	 color: #000000;
+	 text-align: right;
+	 margin-right: 0px;
+	 padding-right: 0px;
+}
+
+.smalllabelcell {
+	 font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	 background-color: transparent;
+	 color: #3670A7;
+	 width: 100px;
+}
+
+.smallfieldcell {
+	 background-color: #F2F7FB;
+	 color: #000000;
+	 text-align: right;
+}
+
+.adulttbl th, .adulttbl td {
+	border: 2px solid #E9F2FA;
+}
+
+thead {
+	background-color: #D3DCE3;
+}
+
+#adultdiv {
+	margin-left: 10%; 
+	margin-right: 10%;
+	width: 1000px;
+}
+.send {
+	-webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+}
+div .daebox {
+background-color: #E5E5FF;
+border: 1px solid #808FF;
+height: 155px;
+overflow: auto;
+padding: 10px;
+}
+
+
+.daebox {
+margin-left: auto;
+margin-right: auto;
+width: 99%;
+}
+
+.adhere { font-size: 10px; text-decoration: none;border: 1px solid #D3D3D3; background: none repeat scroll 0 0 #E6E6E6;}
