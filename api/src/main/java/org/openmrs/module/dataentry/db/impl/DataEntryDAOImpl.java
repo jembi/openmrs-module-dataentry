@@ -44,6 +44,8 @@ public class DataEntryDAOImpl implements DataEntryDAO {
 		if (relationships.size() > 0)
 			relationship = relationships.get(0);
 		
+//		Context.getPersonService().getRelationships(null, Patient p, RelationshipType rt);
+		
 		return relationship;
 	}
 

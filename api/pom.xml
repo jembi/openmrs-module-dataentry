@@ -4,9 +4,8 @@
 	<parent>
 		<groupId>org.openmrs.module</groupId>
 		<artifactId>dataentry</artifactId>
-		<version>1.0.3.8-SNAPSHOT</version>
+		<version>1.0.3.9-SNAPSHOT</version>
 	</parent>
-	<groupId>org.openmrs.module</groupId>
 	<artifactId>dataentry-api</artifactId>
 	<packaging>jar</packaging>
 	<name>Data Entry API</name>
