@@ -3,7 +3,6 @@
 
 <openmrs:require privilege="Add Data entry drugs" otherwise="/login.htm" redirect="/module/dataentry/drugManagement.htm"/>
 
-<openmrs:htmlInclude file="/moduleResources/dataentry/jquery.js" />
 <openmrs:htmlInclude file="/moduleResources/dataentry/demo_page.css" />
 <openmrs:htmlInclude file="/moduleResources/dataentry/demo_table.css" />
 <openmrs:htmlInclude
@@ -15,7 +14,7 @@
 	file="/moduleResources/dataentry/jquery.createdit.js" />
 <openmrs:htmlInclude file="/moduleResources/dataentry/basic.js" />
 <openmrs:htmlInclude file="/moduleResources/dataentry/basic.css" />
-<openmrs:htmlInclude file="/moduleResources/dataentry/calendar.js" />
+<openmrs:htmlInclude file="/scripts/calendar/calendar.js" />
 <openmrs:htmlInclude file="/scripts/dojo/dojo.js" />
 <link href="<%= request.getContextPath() %>/openmrs.css" type="text/css" rel="stylesheet" />
 
