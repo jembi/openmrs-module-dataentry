@@ -31,7 +31,6 @@ import org.openmrs.api.EncounterService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.ObsService;
 import org.openmrs.api.PatientService;
-import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.dataentry.Constants;
 import org.openmrs.module.dataentry.service.DataEntryService;
@@ -218,12 +217,12 @@ public class AdultFollowupFormController extends ParameterizableViewController {
 
 		List<Location> locations = Context.getLocationService()
 				.getAllLocations();
-		double personPhoneNrObs = 0;
+		String personPhoneNrObs = null;
 		String contactPhoneNrObs = "";
 		if (obsPersonPhoneNrList.size() > 0)
 			personPhoneNrObs = obsService.getObs(
 					Utils.biggestObsIdNubmer(obsPersonPhoneNrList))
-					.getValueNumeric();
+					.getValueText();
 		try {
 			if (obsContactPhoneNrList.size() > 0)
 				contactPhoneNrObs = obsService.getObs(
@@ -519,10 +518,10 @@ public class AdultFollowupFormController extends ParameterizableViewController {
 
 			Concept nextVisitConc = conceptService
 					.getConcept(Constants.NEXT_VISIT_DATE);
-			if (request.getParameter("nextVisitDate_8130") != null
-					&& !request.getParameter("nextVisitDate_8130").equals("")) {
+			if (request.getParameter("nextVisitDate_5096") != null
+					&& !request.getParameter("nextVisitDate_5096").equals("")) {
 				Date nextVisitDate = sdf.parse(request
-						.getParameter("nextVisitDate_8130"));
+						.getParameter("nextVisitDate_5096"));
 				Obs nextVisitObs = Utils.createObservation(encDate,
 						encLocation, patient, nextVisitConc, nextVisitDate, 2);
 				obss.add(nextVisitObs);
