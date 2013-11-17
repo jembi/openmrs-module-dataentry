@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+	<!-- Beans to add to the current Application context definition -->
+
+<beans>
+
+	<bean parent="serviceContext">
+		<property name="moduleService">
+			<list>
+				<value>org.openmrs.module.dataentry.service.DataEntryService</value>
+				<bean
+					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+					<property name="transactionManager">
+						<ref bean="transactionManager" />
+					</property>
+					<property name="target">
+						<bean
+							class="org.openmrs.module.dataentry.service.impl.DataEntryServiceImpl">
+							<property name="dataEntryDAO">
+								<bean
+									class="org.openmrs.module.dataentry.db.impl.DataEntryDAOImpl">
+									<property name="sessionFactory">
+										<ref bean="sessionFactory" />
+									</property>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="preInterceptors">
+						<list>
+							<ref bean="authorizationInterceptor" />
+						</list>
+					</property>
+					<property name="transactionAttributeSource">
+						<bean
+							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean> 
+	
+	
+	
+	<bean id="dataentryUrlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="order">
+			<value>2</value>
+		</property>
+		<property name="mappings">
+			<props>
+				<prop key="module/@MODULE_ID@/adultEnrollment.form">adultEnrollmentFormController</prop>
+				<prop key="module/@MODULE_ID@/adultFollowup.form">adultFollowupFormController</prop>
+				<prop key="module/@MODULE_ID@/pediatricEnrollment.form">pediatricEnrollmentFormController</prop>
+				<prop key="module/@MODULE_ID@/pediatricFollowup.form">pediatricFollowupFormController</prop>
+				<prop key="module/@MODULE_ID@/drugManagement.htm">drugManagementController</prop>
+				<prop key="module/@MODULE_ID@/labtest.form">labTestFormController</prop>
+				<prop key="module/@MODULE_ID@/savelabtest.form">saveLabTestController</prop>
+				<prop key="**/patientDataEntryPortlet.portlet">patientDataEntryPortletController</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<!-- Controllers -->
+	<bean id="adultEnrollmentFormController" class="@MODULE_PACKAGE@.web.controller.AdultEnrollmentFormController">
+		<property name="viewName" value="module/@MODULE_ID@/adultEnrollmentForm" />
+	</bean>
+	
+	<bean id="adultFollowupFormController" class="@MODULE_PACKAGE@.web.controller.AdultFollowupFormController">
+		<property name="viewName" value="module/@MODULE_ID@/adultFollowupForm" />
+	</bean>
+	
+	<bean id="pediatricEnrollmentFormController" class="@MODULE_PACKAGE@.web.controller.PediatricEnrollmentFormController">
+		<property name="viewName" value="module/@MODULE_ID@/pediatricEnrollmentForm" />
+	</bean>
+	
+	<bean id="pediatricFollowupFormController" class="@MODULE_PACKAGE@.web.controller.PediatricFollowupFormController">
+		<property name="viewName" value="module/@MODULE_ID@/pediatricFollowupForm" />
+	</bean>
+	
+	<bean id="drugManagementController" class="@MODULE_PACKAGE@.web.controller.DrugManagementController">
+		<property name="viewName" value="module/@MODULE_ID@/drugManagement" />
+	</bean>
+		
+	<bean id="patientDataEntryPortletController"
+		class="@MODULE_PACKAGE@.web.controller.PatientDataEntryController" />	
+    
+    
+    <bean id="labTestFormController" class="org.openmrs.module.dataentry.web.controller.LaboratoryTestFormController">
+		<property name="commandName" value="laboratoryTest" />
+		<property name="formView" value="/module/@MODULE_ID@/labtest" />
+		<property name="successView" value="/module/@MODULE_ID@/tracplussuccess" />
+    </bean>
+    
+    <bean id="saveLabTestController" class="org.openmrs.module.dataentry.web.controller.SaveLaboratoryTestController">
+    </bean>
+	<!-- /Controllers -->
+</beans>
+
