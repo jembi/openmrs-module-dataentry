@@ -41,6 +41,7 @@ import org.openmrs.util.OpenmrsUtil;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.openmrs.web.WebConstants;
 
 public class AdultFollowupFormController extends ParameterizableViewController {
 
@@ -130,8 +131,10 @@ public class AdultFollowupFormController extends ParameterizableViewController {
 	    		String familyName = provider.getPerson() != null ? provider.getPerson().getPersonName().getFamilyName() : "";
 	    		try {
 	    			providerMap.put(provider.getPerson().getPersonId(), givenName + "  " + familyName);
-	    		} catch(NullPointerException npe) {	    			
-	    			return new ModelAndView(new RedirectView("../../admin/provider/index.htm"), "msg", "Link the provider to a person, and go search for a patient again");
+	    		} catch(NullPointerException npe) {
+	    			ModelAndView redirectModelView =  new ModelAndView("../../admin/provider/index.htm");
+	    			request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Link the provider to a person, and go search for a patient again");
+	    			return new ModelAndView(new RedirectView("../../admin/provider/index.htm"));
 	    		}
 	    	}
     	}

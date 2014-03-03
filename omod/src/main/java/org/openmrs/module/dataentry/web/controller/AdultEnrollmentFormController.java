@@ -40,6 +40,8 @@ import org.openmrs.module.dataentry.utils.Utils;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
+import org.springframework.web.servlet.view.RedirectView;
+import org.openmrs.web.WebConstants;
 
 /**
  *
@@ -86,7 +88,8 @@ public class AdultEnrollmentFormController extends
 		Location encLocation = locService.getDefaultLocation();
 		Location hivLoc = locService.getDefaultLocation();
 		Location dftLoc = locService.getDefaultLocation();
-		// Location location = null;
+
+		List<Provider> providers = Context.getProviderService().getAllProviders();
 
 		Date encDate = new Date();
 		Date hivDate = new Date();
@@ -123,9 +126,19 @@ public class AdultEnrollmentFormController extends
     	for(User user : userService.getUsersByRole(userService.getRole(Constants.PROVIDER_ROLE))) {
     		providerMap.put(user.getPerson().getPersonId(), user.getPersonName().getGivenName());
     	}
-    		
-    	for(Provider provider: Context.getProviderService().getAllProviders()){
-    		providerMap.put(provider.getPerson().getPersonId(), provider.getPerson().getPersonName().getGivenName() + "  " + provider.getPerson().getPersonName().getFamilyName());	
+
+    	if(providers.size() > 0) {
+	    	for(Provider provider: providers){
+	    		String givenName = provider.getPerson() != null ? provider.getPerson().getPersonName().getGivenName() : "";
+	    		String familyName = provider.getPerson() != null ? provider.getPerson().getPersonName().getFamilyName() : "";
+	    		try {
+	    			providerMap.put(provider.getPerson().getPersonId(), givenName + "  " + familyName);
+	    		} catch(NullPointerException npe) {
+	    			ModelAndView redirectModelView =  new ModelAndView("../../admin/provider/index.htm");
+	    			request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Link the provider to a person, and go search for a patient again");
+	    			return new ModelAndView(new RedirectView("../../admin/provider/index.htm"));
+	    		}
+	    	}
     	}
 
 		List<EncounterType> encTypes = encService.getAllEncounterTypes();
@@ -187,14 +200,7 @@ public class AdultEnrollmentFormController extends
 
 		List<RelationshipType> relationshipTypes = Context.getPersonService()
 				.getAllRelationshipTypes();
-		// PatientProgram patientProgram = deService
-		// .getPatientProgramByPatient(patient);
-		// try {
-		// location = patient.getPatientIdentifier().getLocation();
-		// } catch (NullPointerException e) {
-		// mav.addObject("msg",
-		// "The patient don't seem to have an Identifier!");
-		// }
+		
 
 		if (request.getParameter("adultInit") != null
 				&& !request.getParameter("adultInit").equals("")) {

@@ -50,13 +50,13 @@
 		</property>
 		<property name="mappings">
 			<props>
-				<prop key="module/@MODULE_ID@/adultEnrollment.form">adultEnrollmentFormController</prop>
-				<prop key="module/@MODULE_ID@/adultFollowup.form">adultFollowupFormController</prop>
-				<prop key="module/@MODULE_ID@/pediatricEnrollment.form">pediatricEnrollmentFormController</prop>
-				<prop key="module/@MODULE_ID@/pediatricFollowup.form">pediatricFollowupFormController</prop>
-				<prop key="module/@MODULE_ID@/drugManagement.htm">drugManagementController</prop>
-				<prop key="module/@MODULE_ID@/labtest.form">labTestFormController</prop>
-				<prop key="module/@MODULE_ID@/savelabtest.form">saveLabTestController</prop>
+				<prop key="module/${project.parent.artifactId}/adultEnrollment.form">adultEnrollmentFormController</prop>
+				<prop key="module/${project.parent.artifactId}/adultFollowup.form">adultFollowupFormController</prop>
+				<prop key="module/${project.parent.artifactId}/pediatricEnrollment.form">pediatricEnrollmentFormController</prop>
+				<prop key="module/${project.parent.artifactId}/pediatricFollowup.form">pediatricFollowupFormController</prop>
+				<prop key="module/${project.parent.artifactId}/drugManagement.htm">drugManagementController</prop>
+				<prop key="module/${project.parent.artifactId}/labtest.form">labTestFormController</prop>
+				<prop key="module/${project.parent.artifactId}/savelabtest.form">saveLabTestController</prop>
 				<prop key="**/patientDataEntryPortlet.portlet">patientDataEntryPortletController</prop>
 			</props>
 		</property>
@@ -64,37 +64,37 @@
 
 
 	<!-- Controllers -->
-	<bean id="adultEnrollmentFormController" class="@MODULE_PACKAGE@.web.controller.AdultEnrollmentFormController">
-		<property name="viewName" value="module/@MODULE_ID@/adultEnrollmentForm" />
+	<bean id="adultEnrollmentFormController" class="${project.parent.groupId}.${project.parent.artifactId}.web.controller.AdultEnrollmentFormController">
+		<property name="viewName" value="module/${project.parent.artifactId}/adultEnrollmentForm" />
 	</bean>
 	
-	<bean id="adultFollowupFormController" class="@MODULE_PACKAGE@.web.controller.AdultFollowupFormController">
-		<property name="viewName" value="module/@MODULE_ID@/adultFollowupForm" />
+	<bean id="adultFollowupFormController" class="${project.parent.groupId}.${project.parent.artifactId}.web.controller.AdultFollowupFormController">
+		<property name="viewName" value="module/${project.parent.artifactId}/adultFollowupForm" />
 	</bean>
 	
-	<bean id="pediatricEnrollmentFormController" class="@MODULE_PACKAGE@.web.controller.PediatricEnrollmentFormController">
-		<property name="viewName" value="module/@MODULE_ID@/pediatricEnrollmentForm" />
+	<bean id="pediatricEnrollmentFormController" class="${project.parent.groupId}.${project.parent.artifactId}.web.controller.PediatricEnrollmentFormController">
+		<property name="viewName" value="module/${project.parent.artifactId}/pediatricEnrollmentForm" />
 	</bean>
 	
-	<bean id="pediatricFollowupFormController" class="@MODULE_PACKAGE@.web.controller.PediatricFollowupFormController">
-		<property name="viewName" value="module/@MODULE_ID@/pediatricFollowupForm" />
+	<bean id="pediatricFollowupFormController" class="${project.parent.groupId}.${project.parent.artifactId}.web.controller.PediatricFollowupFormController">
+		<property name="viewName" value="module/${project.parent.artifactId}/pediatricFollowupForm" />
 	</bean>
 	
-	<bean id="drugManagementController" class="@MODULE_PACKAGE@.web.controller.DrugManagementController">
-		<property name="viewName" value="module/@MODULE_ID@/drugManagement" />
+	<bean id="drugManagementController" class="${project.parent.groupId}.${project.parent.artifactId}.web.controller.DrugManagementController">
+		<property name="viewName" value="module/${project.parent.artifactId}/drugManagement" />
 	</bean>
 		
 	<bean id="patientDataEntryPortletController"
-		class="@MODULE_PACKAGE@.web.controller.PatientDataEntryController" />	
+		class="${project.parent.groupId}.${project.parent.artifactId}.web.controller.PatientDataEntryController" />	
     
     
-    <bean id="labTestFormController" class="org.openmrs.module.dataentry.web.controller.LaboratoryTestFormController">
+    <bean id="labTestFormController" class="${project.parent.groupId}.${project.parent.artifactId}.web.controller.LaboratoryTestFormController">
 		<property name="commandName" value="laboratoryTest" />
-		<property name="formView" value="/module/@MODULE_ID@/labtest" />
-		<property name="successView" value="/module/@MODULE_ID@/tracplussuccess" />
+		<property name="formView" value="/module/${project.parent.artifactId}/labtest" />
+		<property name="successView" value="/module/${project.parent.artifactId}/tracplussuccess" />
     </bean>
     
-    <bean id="saveLabTestController" class="org.openmrs.module.dataentry.web.controller.SaveLaboratoryTestController">
+    <bean id="saveLabTestController" class="${project.parent.groupId}.${project.parent.artifactId}.web.controller.SaveLaboratoryTestController">
     </bean>
 	<!-- /Controllers -->
 </beans>

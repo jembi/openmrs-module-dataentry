@@ -3,13 +3,15 @@
 <module configVersion="1.0">
 	
 	<!-- DataEntry Module Properties -->
-	<id>dataentry</id>
-	<name>Data Entry</name>
-	<version>1.0.3.8</version>
-	<package>org.openmrs.module.@MODULE_ID@</package>
-	<author>DUSABE Eric</author>
-	<description>Adult and Pediatric patient data entry</description>
-	<activator>@MODULE_PACKAGE@.DataEntryModuleActivator</activator>
+	<id>${project.parent.artifactId}</id>
+	<name>${project.parent.name}</name>
+	<version>${project.parent.version}</version>
+	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
+	<author>Rwanda MOH</author>
+	<description>
+		${project.parent.description}
+	</description>
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.DataEntryModuleActivator</activator>
 	<!-- /DataEntry Module Properties -->
 	
 	<!-- Required Privileges -->
@@ -37,32 +39,32 @@
 	
 	<!-- Required Global Properties -->
 	<globalProperty>
-		<property>@MODULE_ID@.infectionSet</property>
+		<property>${project.parent.artifactId}.infectionSet</property>
 		<defaultValue>6976</defaultValue> 
 		<description>Infection Set</description> 
 	</globalProperty>	
 	<globalProperty>
-		<property>@MODULE_ID@.startDate</property>
+		<property>${project.parent.artifactId}.startDate</property>
 		<defaultValue>6974</defaultValue> 
 		<description> Opportunistic Infection Start Date</description> 
 	</globalProperty>
 	<globalProperty>
-		<property>@MODULE_ID@.endDate</property>
+		<property>${project.parent.artifactId}.endDate</property>
 		<defaultValue>6975</defaultValue> 
 		<description>Opportunistic Infection End Date</description> 
 	</globalProperty>
 	<globalProperty>
-		<property>@MODULE_ID@.oppInfTreatRes</property>
+		<property>${project.parent.artifactId}.oppInfTreatRes</property>
 		<defaultValue>6973</defaultValue> 
 		<description>Opportunistic Infection Treatment Result</description> 
 	</globalProperty>
 	<globalProperty>
-		<property>@MODULE_ID@.familySerology</property>
+		<property>${project.parent.artifactId}.familySerology</property>
 		<defaultValue>6978</defaultValue> 
 		<description>Family Serology Set</description> 
 	</globalProperty>
 	<globalProperty>
-		<property>@MODULE_ID@.stiSet</property>
+		<property>${project.parent.artifactId}.stiSet</property>
 		<defaultValue>6977</defaultValue> 
 		<description>Sexually Transmitted Infections</description> 
 	</globalProperty>
@@ -77,7 +79,7 @@
 	
 	<extension>
 		<point>org.openmrs.patientDashboardTab</point>
-		<class>@MODULE_PACKAGE@.extension.html.DataEntryDashboardTab</class>
+		<class>${project.parent.groupId}.${project.parent.artifactId}.extension.html.DataEntryDashboardTab</class>
 	</extension>
 	
 	<!-- Internationalization -->
