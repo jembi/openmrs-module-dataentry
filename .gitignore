@@ -76,5 +76,7 @@ nb-configuration.xml
 ### OpenMRS Files ###
 api/target
 omod/target
+api/.gitignore
+omod/.gitignore
 api-common/target
 #############
