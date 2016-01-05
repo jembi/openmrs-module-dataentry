@@ -19,6 +19,8 @@ import org.openmrs.Drug;
 import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
+import org.openmrs.Order.Action;
+import org.openmrs.OrderFrequency;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.api.ConceptService;
@@ -27,6 +29,7 @@ import org.openmrs.api.OrderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.dataentry.Constants;
 import org.openmrs.module.dataentry.utils.Utils;
+import org.openmrs.module.mohtracportal.service.MohTracPortalService;
 import org.openmrs.web.WebConstants;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
@@ -85,17 +88,20 @@ public class DrugManagementController extends ParameterizableViewController {
 						&& !request.getParameter("dose").equals(""))
 					drugOrder.setDose(Double.valueOf(request
 							.getParameter("dose")));
-				drugOrder.setFrequency(request.getParameter("frequency"));
-				drugOrder.setUnits(request.getParameter("units"));
+				OrderFrequency freq = Context.getService(MohTracPortalService.class).persistAndOrFetchOrderFrequency(request.getParameter("frequency"), null);
+				
+				drugOrder.setFrequency(freq);
+				drugOrder.setDosingInstructions(request.getParameter("units"));
 				if (request.getParameter("quantity") != null
 						&& !request.getParameter("quantity").equals(""))
-					drugOrder.setQuantity(Integer.valueOf(request
+					drugOrder.setQuantity(Double.valueOf(request
 							.getParameter("quantity")));
 				if (!startDateStr.equals("") && startDateStr != null) {
 					Date startDate = sdf.parse(startDateStr);
-					drugOrder.setStartDate(startDate);
+					drugOrder.setAction(Action.RENEW);
+					drugOrder.setDateActivated(startDate);
 
-					orderService.saveOrder(drugOrder);
+					orderService.saveOrder(drugOrder, null);
 					mav.addObject("msg",
 							"An order has been created successfully!");
 				} else {
@@ -112,9 +118,8 @@ public class DrugManagementController extends ParameterizableViewController {
 				&& !request.getParameter("editcreate").equals("")
 				&& patient != null) {
 			if (request.getParameter("editcreate").equals("edit")) {
-				DrugOrder drugOrder = orderService.getOrder(Integer
-						.valueOf(request.getParameter("orderId")),
-						DrugOrder.class);
+				DrugOrder drugOrder = (DrugOrder) orderService.getOrder(Integer
+						.valueOf(request.getParameter("orderId")));
 				Order order = orderService.getOrder(Integer.valueOf(request
 						.getParameter("orderId")));
 
@@ -127,7 +132,8 @@ public class DrugManagementController extends ParameterizableViewController {
 					String strDate1 = request.getParameter("startdate");
 
 					Date startDate = sdf.parse(strDate1);
-					drugOrder.setStartDate(startDate);
+					drugOrder.setAction(Action.RENEW);
+					drugOrder.setDateActivated(startDate);
 				}
 
 				drugOrder.setConcept(drug.getConcept());
@@ -140,16 +146,16 @@ public class DrugManagementController extends ParameterizableViewController {
 						&& !request.getParameter("dose").equals(""))
 					drugOrder.setDose(Double.valueOf(request
 							.getParameter("dose")));
-
-				drugOrder.setFrequency(request.getParameter("frequency"));
-				drugOrder.setUnits(request.getParameter("units"));
+				OrderFrequency freq = Context.getService(MohTracPortalService.class).persistAndOrFetchOrderFrequency(request.getParameter("frequency"), null);
+				drugOrder.setFrequency(freq);
+				drugOrder.setDosingInstructions(request.getParameter("units"));
 
 				if (request.getParameter("quantity") != null
 						&& !request.getParameter("quantity").equals(""))
-					drugOrder.setQuantity(Integer.valueOf(request
+					drugOrder.setQuantity(Double.valueOf(request
 							.getParameter("quantity")));
 
-				orderService.saveOrder(drugOrder);
+				orderService.saveOrder(drugOrder, null);
 				mav.addObject("msg", "An order has been updated successfully!");
 			}
 		}
@@ -164,12 +170,9 @@ public class DrugManagementController extends ParameterizableViewController {
 						.valueOf(request.getParameter("reasons")));
 				Date date = sdf.parse(request.getParameter("stopDate"));
 
-				order.setDiscontinuedReason(concept);
-				order.setDiscontinuedDate(date);
-				order.setDiscontinued(true);
-				order.setDiscontinuedBy(Context.getAuthenticatedUser());
+				Context.getOrderService().discontinueOrder(order, concept, date, order.getOrderer(), order.getEncounter());
 
-				orderService.saveOrder(order);
+				orderService.saveOrder(order, null);
 				mav.addObject("msg", "An order has been stopped successfully!");
 			}
 
@@ -177,7 +180,7 @@ public class DrugManagementController extends ParameterizableViewController {
 
 		List<DrugOrder> drugOrders = new ArrayList<DrugOrder>();
 		if (patient != null) {
-			drugOrders = orderService.getDrugOrdersByPatient(patient);
+			drugOrders = Context.getService(MohTracPortalService.class).getDrugOrdersByPatient(patient);
 			mav.addObject("patient", patient);
 		}
 		mav.addObject("drugOrders", drugOrders);

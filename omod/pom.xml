@@ -12,6 +12,13 @@
 	<description>OpenMRS module project for Data Entry</description>
 
 	<dependencies>
+	
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>mohtracportal-api</artifactId>
+			<version>0.2.5</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>dataentry-api</artifactId>
@@ -37,11 +44,6 @@
 			<groupId>org.openmrs.web</groupId>
 			<artifactId>openmrs-web</artifactId>
 			<type>test-jar</type>
-		</dependency>
-		<dependency>
-			<groupId>org.openmrs.test</groupId>
-			<artifactId>openmrs-test</artifactId>
-			<type>pom</type>
 		</dependency>
 	</dependencies>
 

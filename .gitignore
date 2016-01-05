@@ -73,5 +73,8 @@ nb-configuration.xml
 /webapp/src/main/webapp/WEB-INF/module_messages*
 #############
 
-omod/**
-api/**
+### OpenMRS Files ###
+api/target
+omod/target
+api-common/target
+#############
