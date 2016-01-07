@@ -4,20 +4,20 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.openmrs.Patient;
 import org.openmrs.Relationship;
+import org.openmrs.api.db.hibernate.DbSession;
+import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.dataentry.db.DataEntryDAO;
 
 public class DataEntryDAOImpl implements DataEntryDAO {
 	protected static final Log log = LogFactory.getLog(DataEntryDAOImpl.class);
-	private SessionFactory sessionFactory;
+	private DbSessionFactory sessionFactory;
 
 	/**
 	 * @return the sessionFactory
 	 */
-	public SessionFactory getSessionFactory() {
+	public DbSessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
 
@@ -25,7 +25,7 @@ public class DataEntryDAOImpl implements DataEntryDAO {
 	 * @param sessionFactory
 	 *            the sessionFactory to set
 	 */
-	public void setSessionFactory(SessionFactory sessionFactory) {
+	public void setSessionFactory(DbSessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
@@ -36,7 +36,7 @@ public class DataEntryDAOImpl implements DataEntryDAO {
 		sb.append(" SELECT r.* FROM relationship r WHERE person_b = '"
 				+ patient.getPatientId() + "' ");
 
-		Session session = sessionFactory.getCurrentSession();
+		DbSession session = sessionFactory.getCurrentSession();
 
 		List<Relationship> relationships = session
 				.createSQLQuery(sb.toString()).addEntity("r",
